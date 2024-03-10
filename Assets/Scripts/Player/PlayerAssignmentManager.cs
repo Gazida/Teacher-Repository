@@ -2,16 +2,30 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 public class PlayerAssignmentManager : MonoBehaviour, IGameTimeObserver
 {
     [Header("FOR UI")]
-    [SerializeField] private TMP_InputField numberOfQustionsInputField;
-    [SerializeField] private TMP_InputField questionInputField;
+    [SerializeField][Tooltip("Oyuncunun kaç soru soracaðýný gireceði girdi alaný")] private TMP_InputField numberOfQustionsInputField;
+    [SerializeField][Tooltip("Oyuncunun gireceði sorunun girdi alaný")] private TMP_InputField questionInputField;
+    [SerializeField][Tooltip("Oyuncunun gireceði cevaplarýn girdi alaný")] private TMP_InputField[] answersInputField;
+
+    [Space(10)]
+    [SerializeField][Tooltip("Aktifliði deðiþtirilecek layer.")] private GameObject startTheAssignmentSystem;
+    [SerializeField][Tooltip("Aktifliði deðiþtirilecek layer.")] private GameObject chooseHowManyQuestions;
+    [SerializeField][Tooltip("Aktifliði deðiþtirilecek layer.")] private GameObject enterTheQuestionAndAnswer;
+    [SerializeField][Tooltip("Aktifliði deðiþtirilecek layer.")] private GameObject chooseCorrectAnswer;
 
     private int numberOfQuestion; // Oyuncunun kaç soru ödev vereceðini bu deðiþkende tutucaz
+    private int numberOfQustionsEntered; // Oyuncu her soru girdiðinde bu deðer artacak. numberOfQuestion deðiþkenine eþit olduðunda ise soru girme iþlemi bitmiþ olacak.
 
-    public void SoruSayisiniOnayla()
+    public void StartTheAssignment()
+    {
+        startTheAssignmentSystem.SetActive(false);
+        chooseHowManyQuestions.SetActive(true);
+    }
+    public void ConfirmTheQuestionCount()
     {
         numberOfQuestion = int.Parse(numberOfQustionsInputField.text);
 
@@ -23,27 +37,44 @@ public class PlayerAssignmentManager : MonoBehaviour, IGameTimeObserver
         {
             numberOfQuestion = 10;
         }
-        Debug.Log(numberOfQuestion);
+        chooseHowManyQuestions.SetActive(false); // Soru sayýsýný onaylayýnca "Soru Sayýsý Belirleme" kýsmýný kapat
+        enterTheQuestionAndAnswer.SetActive(true); // Soru sayýsýný onaylayýnca Soru ve Cevap Girme" kýsmýný aç
     }
-    public void SoruyuOnayla()
+    public void ConfirmTheQuestion()
     {
-        Debug.Log(questionInputField.text);
+        // Soru alanýna bir soru girilmediyse return döndür. (Metottan Çýk)
+        if (questionInputField.text == "")
+            return;
+
+        for (int i = 0; i < answersInputField.Length; i++)
+        {
+            // Cevaplardan biri girilmediyse return dönder ve metottan çýk.
+            if (answersInputField[i].text == "")
+                return;
+        }
+        enterTheQuestionAndAnswer.SetActive(false); // Soruyu onaylayýnca "Soru ve Cevap Girme" kapat
+        chooseCorrectAnswer.SetActive(true); // Soruyu onaylanýnca "Doðru Cevabý Seçme" kýsmýnýaç
+        numberOfQuestion++;
     }
     public void ChooseA()
     {
-        Debug.Log("A");
+        chooseCorrectAnswer.SetActive(false); // Doðru cevabý seçince "Doðru Cevabý Seçme" kýsmýný kapat
+        enterTheQuestionAndAnswer.SetActive(true); // Doðru cevabý sçince "Soru ve Cevap Girme" kýsmýný aç
     }
     public void ChooseB()
     {
-        Debug.Log("B");
+        chooseCorrectAnswer.SetActive(false);
+        enterTheQuestionAndAnswer.SetActive(true);
     }
     public void ChooseC()
     {
-        Debug.Log("C");
+        chooseCorrectAnswer.SetActive(false);
+        enterTheQuestionAndAnswer.SetActive(true);
     }
     public void ChooseD()
     {
-        Debug.Log("D");
+        chooseCorrectAnswer.SetActive(false);
+        enterTheQuestionAndAnswer.SetActive(true);
     }
 
     public void NextDay()
