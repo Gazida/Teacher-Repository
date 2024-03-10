@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08963d7c847ab604bb0044ab488bb44c, type: 3}
+  m_Name: StudentsAndFeatures
+  m_EditorClassIdentifier: 
+  studentDatas:
+  - studentName: "Gazi \u0130dac\u0131"
+    studentId: 0
+    numberOfAbsences: 0
+    isCurrentlyAtSchool: 1
+    wasAttendanceTaken: 0
+  - studentName: "Veli K\u0131r\u0131k"
+    studentId: 1
+    numberOfAbsences: 0
+    isCurrentlyAtSchool: 0
+    wasAttendanceTaken: 0
+  - studentName: Ali Mahzun
+    studentId: 2
+    numberOfAbsences: 0
+    isCurrentlyAtSchool: 1
+    wasAttendanceTaken: 0
+  - studentName: "Muhammed Ya\u015Far"
+    studentId: 3
+    numberOfAbsences: 0
+    isCurrentlyAtSchool: 1
+    wasAttendanceTaken: 0
+  - studentName: "Muhittin G\xFCe\u015F"
+    studentId: 4
+    numberOfAbsences: 0
+    isCurrentlyAtSchool: 0
+    wasAttendanceTaken: 0
+  - studentName: "Mert \xC7in\xE7ino\u011Flu"
+    studentId: 5
+    numberOfAbsences: 0
+    isCurrentlyAtSchool: 1
+    wasAttendanceTaken: 0
+  - studentName: Bekir Erkan
+    studentId: 6
+    numberOfAbsences: 0
+    isCurrentlyAtSchool: 1
+    wasAttendanceTaken: 0
+  - studentName: Haci Burak
+    studentId: 7
+    numberOfAbsences: 0
+    isCurrentlyAtSchool: 1
+    wasAttendanceTaken: 0
+  - studentName: "\xD6mer Karalar"
+    studentId: 8
+    numberOfAbsences: 0
+    isCurrentlyAtSchool: 1
+    wasAttendanceTaken: 0
+  - studentName: "Arif Naz\u0131m"
+    studentId: 9
+    numberOfAbsences: 0
+    isCurrentlyAtSchool: 1
+    wasAttendanceTaken: 0

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3279b4229c1fc2d4f9695eb9ddb7bbf5, type: 3}
+  m_Name: PlayerFeatures
+  m_EditorClassIdentifier: 
+  characterName: Ahmet Muhsin
+  characterAge: 27
+  characterBranch: "Matematik \xD6\u011Fretmeni"
+  salary: 32000
+  accountBalance: 5000
+  cardPassword: 1234
+  hunger: 1
+  thirst: 1
+  mana: 1
+  needForToilet: 0.405
