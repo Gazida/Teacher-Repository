@@ -18,68 +18,58 @@ MonoBehaviour:
     numberOfAbsences: 0
     isCurrentlyAtSchool: 1
     wasAttendanceTaken: 1
-    questions: []
-    answers: 
+    answers: 6100610061006100000000000000000000000000
   - studentName: "Veli K\u0131r\u0131k"
     studentId: 1
     numberOfAbsences: 0
     isCurrentlyAtSchool: 1
     wasAttendanceTaken: 1
-    questions: []
-    answers: 
+    answers: 6100610061006100000000000000000000000000
   - studentName: Ali Mahzun
     studentId: 2
     numberOfAbsences: 0
     isCurrentlyAtSchool: 0
     wasAttendanceTaken: 1
-    questions: []
-    answers: 
+    answers: 6100610061006100000000000000000000000000
   - studentName: "Muhammed Ya\u015Far"
     studentId: 3
     numberOfAbsences: 0
     isCurrentlyAtSchool: 1
     wasAttendanceTaken: 1
-    questions: []
-    answers: 
+    answers: 6100610061006100000000000000000000000000
   - studentName: "Muhittin G\xFCe\u015F"
     studentId: 4
     numberOfAbsences: 0
     isCurrentlyAtSchool: 1
     wasAttendanceTaken: 1
-    questions: []
-    answers: 
+    answers: 6100610061006100000000000000000000000000
   - studentName: "Mert \xC7in\xE7ino\u011Flu"
     studentId: 5
     numberOfAbsences: 0
     isCurrentlyAtSchool: 1
     wasAttendanceTaken: 1
-    questions: []
-    answers: 
+    answers: 6100610061006100000000000000000000000000
   - studentName: Bekir Erkan
     studentId: 6
     numberOfAbsences: 1
     isCurrentlyAtSchool: 1
     wasAttendanceTaken: 1
-    questions: []
-    answers: 
+    answers: 6100610061006100000000000000000000000000
   - studentName: Haci Burak
     studentId: 7
     numberOfAbsences: 1
     isCurrentlyAtSchool: 1
     wasAttendanceTaken: 1
-    questions: []
-    answers: 
+    answers: 6100610061006100000000000000000000000000
   - studentName: "\xD6mer Karalar"
     studentId: 8
     numberOfAbsences: 0
     isCurrentlyAtSchool: 1
     wasAttendanceTaken: 1
-    questions: []
-    answers: 
+    answers: 6100610061006100000000000000000000000000
   - studentName: "Arif Naz\u0131m"
     studentId: 9
     numberOfAbsences: 1
     isCurrentlyAtSchool: 1
     wasAttendanceTaken: 1
-    questions: []
-    answers: 
+    answers: 6100610061006100000000000000000000000000

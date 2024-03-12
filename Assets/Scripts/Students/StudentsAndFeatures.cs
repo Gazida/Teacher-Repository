@@ -16,9 +16,12 @@ public class StudentDatas
     [Tooltip("O gün okulda olup olmadýðýný tuttuðumuz deðiþken.")] public bool isCurrentlyAtSchool;
     [Tooltip("Öðretmenin tekrar tekrar yoklama almasýný önleyecek deðiþken.")] public bool wasAttendanceTaken; //Öðretmen yoklamayý aldýðýnda bu deðer true olacak.
 
+
     [Header("For Homework")]
-    [Tooltip("")] public string[] questions;
-    [Tooltip("")] public char[] answers;
+    // Aþaðýdaki deðiþkenlere þuan ihtiyaç yok. Ýhtiyaç olursa yorum satýrý kaldýrýlacak.
+    // [Tooltip("Bu deðiþkende öðretmenin(oyuncunun) verdiði ödevdeki sorular tutulacak.")] public string[] questions;
+    [Tooltip("Bu deðiþkende öðretmenin(oyuncunun) verdiði ödevdeki cevaplar tutulacak.")] public char[] answers;
+
 }
 
 [CreateAssetMenu(fileName = "StudentsAndFeatures", menuName = "Scriptable Objects/StudentsAndFeatures")]

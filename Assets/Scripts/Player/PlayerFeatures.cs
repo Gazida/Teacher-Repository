@@ -26,7 +26,7 @@ public class PlayerFeatures : ScriptableObject
     [Tooltip("Oyuncunun soru ve cevap girdilerinin tutulacaðý yapý")]public HomeWorkQuestions[] homeWorkQuestions;
     [Tooltip("Ödev sorularýnýn doðru cevaplarýnýn tutulacaðý dizi. Dizi boyutunu 10 olarak ayarla." +
         " Diðer scriptlerde soru sayýsýna göre kontrol saðlanýyor olacak zaten.")] public char[] correctAnswer;
-    [Tooltip("Ödev için verilecek soru sayýsýný tutacak deðiþken.")] public int questionsCount;
+    [Tooltip("Ödev için verilecek soru sayýsýný tutacak deðiþken.")] public int questionsCount; // Bu deðiþkene inspectorda deðer atamaya gerek yok. Kod üzreinde zate sürekli deðiþecek.
 }
 
 // Oyuncunun soru ve cevap girdilerinin tutulacaðý sýnýf(yapý)
