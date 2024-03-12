@@ -17,12 +17,22 @@ public class AttendanceManager : MonoBehaviour, IGameTimeObserver
 
     public bool IsAttendanceCompleted { get { return isAttendanceCompleted;} }
 
-
     private void Awake()
     {
         inGameTimeManage.Attach(this);
     }
 
+    // Bunu sonra sil sadece denemek içindi
+    private void Update()
+    {
+        if (Input.GetKeyDown("l"))
+        {
+            for (int i = 0; i < students.studentDatas.Length; i++)
+            {
+                students.studentDatas[i].wasAttendanceTaken = false;
+            }
+        }        
+    }
     public void StartAttendance()
     {
         int numberOfStudentsNotInClass = Random.Range(0, 4); // Yok yazýlacak öðrenci sayýsý
@@ -42,8 +52,8 @@ public class AttendanceManager : MonoBehaviour, IGameTimeObserver
             {
                 randStudentId[i] = Random.Range(0, students.studentDatas.Length);
                 students.studentDatas[randStudentId[i]].isCurrentlyAtSchool = false;
-                Debug.Log("Kaç kez çalýþtý");
             }
+            Debug.Log($"{numberOfStudentsNotInClass} kiþi sýnýfta yok");
         }
     }
     public void IsHere(int id)

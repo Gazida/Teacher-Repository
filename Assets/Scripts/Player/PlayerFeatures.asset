@@ -22,3 +22,65 @@ MonoBehaviour:
   thirst: 1
   mana: 1
   needForToilet: 0.405
+  homeWorkQuestions:
+  - question: kjh
+    answers:
+    - jhg
+    - hg
+    - gf
+    - gf
+  - question: ghfdfhgf
+    answers:
+    - jhg
+    - hg
+    - gf
+    - gf
+  - question: ytuytuyuyuyyuytuyt
+    answers:
+    - jhg
+    - hg
+    - gf
+    - gf
+  - question: 
+    answers:
+    - 
+    - 
+    - 
+    - 
+  - question: 
+    answers:
+    - 
+    - 
+    - 
+    - 
+  - question: 
+    answers:
+    - 
+    - 
+    - 
+    - 
+  - question: 
+    answers:
+    - 
+    - 
+    - 
+    - 
+  - question: 
+    answers:
+    - 
+    - 
+    - 
+    - 
+  - question: 
+    answers:
+    - 
+    - 
+    - 
+    - 
+  - question: 
+    answers:
+    - 
+    - 
+    - 
+    - 
+  correctAnswer: 6200630064000000000000000000000000000000

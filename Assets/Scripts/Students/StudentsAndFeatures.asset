@@ -17,49 +17,69 @@ MonoBehaviour:
     studentId: 0
     numberOfAbsences: 0
     isCurrentlyAtSchool: 1
-    wasAttendanceTaken: 0
+    wasAttendanceTaken: 1
+    questions: []
+    answers: 
   - studentName: "Veli K\u0131r\u0131k"
     studentId: 1
     numberOfAbsences: 0
-    isCurrentlyAtSchool: 0
-    wasAttendanceTaken: 0
+    isCurrentlyAtSchool: 1
+    wasAttendanceTaken: 1
+    questions: []
+    answers: 
   - studentName: Ali Mahzun
     studentId: 2
     numberOfAbsences: 0
-    isCurrentlyAtSchool: 1
-    wasAttendanceTaken: 0
+    isCurrentlyAtSchool: 0
+    wasAttendanceTaken: 1
+    questions: []
+    answers: 
   - studentName: "Muhammed Ya\u015Far"
     studentId: 3
     numberOfAbsences: 0
     isCurrentlyAtSchool: 1
-    wasAttendanceTaken: 0
+    wasAttendanceTaken: 1
+    questions: []
+    answers: 
   - studentName: "Muhittin G\xFCe\u015F"
     studentId: 4
     numberOfAbsences: 0
-    isCurrentlyAtSchool: 0
-    wasAttendanceTaken: 0
+    isCurrentlyAtSchool: 1
+    wasAttendanceTaken: 1
+    questions: []
+    answers: 
   - studentName: "Mert \xC7in\xE7ino\u011Flu"
     studentId: 5
     numberOfAbsences: 0
     isCurrentlyAtSchool: 1
-    wasAttendanceTaken: 0
+    wasAttendanceTaken: 1
+    questions: []
+    answers: 
   - studentName: Bekir Erkan
     studentId: 6
-    numberOfAbsences: 0
+    numberOfAbsences: 1
     isCurrentlyAtSchool: 1
-    wasAttendanceTaken: 0
+    wasAttendanceTaken: 1
+    questions: []
+    answers: 
   - studentName: Haci Burak
     studentId: 7
-    numberOfAbsences: 0
+    numberOfAbsences: 1
     isCurrentlyAtSchool: 1
-    wasAttendanceTaken: 0
+    wasAttendanceTaken: 1
+    questions: []
+    answers: 
   - studentName: "\xD6mer Karalar"
     studentId: 8
     numberOfAbsences: 0
     isCurrentlyAtSchool: 1
-    wasAttendanceTaken: 0
+    wasAttendanceTaken: 1
+    questions: []
+    answers: 
   - studentName: "Arif Naz\u0131m"
     studentId: 9
-    numberOfAbsences: 0
+    numberOfAbsences: 1
     isCurrentlyAtSchool: 1
-    wasAttendanceTaken: 0
+    wasAttendanceTaken: 1
+    questions: []
+    answers: 

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerFeatures", menuName = "Scriptable Objects/PlayerFeatures")]
@@ -20,12 +21,18 @@ public class PlayerFeatures : ScriptableObject
     [Tooltip("Mana'nýn durumunun kontrol edileceði deðiþken")][Range(0, 1)] public float mana;
     [Tooltip("Tuvalet ihtiyacýnýn kontrol edileceði deðiþken")][Range(0, 1)] public float needForToilet;
 
-    private void Awake()
-    {
-        // Bu deðerler oyun içi "HUD UI" sisteminde image'larýn fillAmount deðerlerini belirleyeceði için 0-1 arasýnda sýnýrlandýrýldý 
-        hunger = Mathf.Clamp(hunger, 0, 1);
-        thirst = Mathf.Clamp(thirst, 0, 1);
-        mana = Mathf.Clamp(mana, 0, 1);
-        needForToilet = Mathf.Clamp(needForToilet, 0, 1);
-    }
+
+    [Header("Homework For Students")] // Ödev Sisteminde kullanýlacak deðiþkenler
+    [Tooltip("Oyuncunun soru ve cevap girdilerinin tutulacaðý yapý")]public HomeWorkQuestions[] homeWorkQuestions;
+    [Tooltip("Ödev sorularýnýn doðru cevaplarýnýn tutulacaðý dizi. Dizi boyutunu 10 olarak ayarla." +
+        " Diðer scriptlerde soru sayýsýna göre kontrol saðlanýyor olacak zaten.")] public char[] correctAnswer;
+    [Tooltip("Ödev için verilecek soru sayýsýný tutacak deðiþken.")] public int questionsCount;
+}
+
+// Oyuncunun soru ve cevap girdilerinin tutulacaðý sýnýf(yapý)
+[Serializable]
+public class HomeWorkQuestions
+{
+    [Tooltip("Soru")] public string question;
+    [Tooltip("Cevaplar")] public string[] answers;
 }

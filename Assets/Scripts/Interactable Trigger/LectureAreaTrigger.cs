@@ -10,6 +10,7 @@ public class LectureAreaTrigger : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             teachingManager.IsTeacherLectureArea = true;
+            Debug.Log("Ders anlatma alanýndasýn");
         }
     }
     private void OnTriggerExit(Collider other)

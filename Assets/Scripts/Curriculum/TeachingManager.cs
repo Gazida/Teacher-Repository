@@ -12,17 +12,17 @@ public class TeachingManager : MonoBehaviour, IGameTimeObserver
     [SerializeField] private Curriculum curriculum;
 
     [Header("All Cirriculum Number Of")]
-    [Tooltip("Müfredattaki toplam Unite sayýsý")] public int numberOfUnitInTheCirriculum = 8;
-    [Tooltip("Müfredattaki toplam Konu sayýsý")] public int numberOfTopicInTheCirriculum = 8 * 3;
-    [Tooltip("Müfredattaki toplam Paragraf sayýsý")] public int numberOfParagraphInTheCirriculum = 8 * 3 * 30;
+    [Tooltip("Müfredattaki toplam Unite sayýsý : (8)")] public int numberOfUnitInTheCirriculum = 8;
+    [Tooltip("Müfredattaki toplam Konu sayýsý : (8 * 3)")] public int numberOfTopicInTheCirriculum = 8 * 3;
+    [Tooltip("Müfredattaki toplam Paragraf sayýsý : (8 * 3 * 30)")] public int numberOfParagraphInTheCirriculum = 8 * 3 * 30;
 
     [Header("In A Day Number Of")]
-    [Tooltip("Bir gün içindeki ders sayýsý")] public int numberOfLessonsInADay = 3;
-    [Tooltip("Bir derste anlatýlacak paragraf sayýsý")] public int numberOfParagraphInTheLesson = 10;
+    [Tooltip("Bir gün içindeki ders sayýsý : (3)")] public int numberOfLessonsInADay = 3;
+    [Tooltip("Bir derste anlatýlacak paragraf sayýsý : (10)")] public int numberOfParagraphInTheLesson = 10;
 
     [Header("In A Split Number Of")]
-    [Tooltip("Bir ünitedeki konu sayýsý")] public int numberOfTopicsInAUnit = 3;
-    [Tooltip("Bir konudaki paragraf sayýsý")] public int numberOfParagraphInATopic = 30;
+    [Tooltip("Bir ünitedeki konu sayýsý : (3)")] public int numberOfTopicsInAUnit = 3;
+    [Tooltip("Bir konudaki paragraf sayýsý : (30)")] public int numberOfParagraphInATopic = 30;
 
     [Space(10)]
     [Tooltip("Teneffüs süresi.")] public float breakTime = 120f;
@@ -37,8 +37,17 @@ public class TeachingManager : MonoBehaviour, IGameTimeObserver
     private int currentNumberOfParagraph; // Anlýk olarak anlatýlmýþ olan paragraflarýn sayýsý
 
     private bool canTeachLesson = true; // Ders anlatabilir mi?
-
+    private bool isLessonsFinished; // O günkü dersler bitti mi
     private bool isTeacherLectureArea; // Öðretmen = Oyuncu ders anlatma alanýnda mý?
+
+    public bool IsLessonsFinished
+    {
+        get { return isLessonsFinished; }
+        set
+        {
+            isLessonsFinished = value;
+        }
+    }
     public bool IsTeacherLectureArea
     {
         get { return isTeacherLectureArea; }
@@ -58,7 +67,7 @@ public class TeachingManager : MonoBehaviour, IGameTimeObserver
             // Ders iþlenebiliyorsa dersi anlat. Eðer gün sayýsý 4'ün katlarýna denk gelmiyorsa yani hafta sonu deðilse ders anlatabilsin
             if (canTeachLesson && ((inGameTimeManage.CurrentNumberOfDay + 1) % 4) != 0) // +1 olmasýnýn sebebi gün deðerleri deðiþkende 0 olarak baþlýyor. Bu da 0%4 = 0 olduðundan ilk gün ders anlatazmaz hatasýna sebep oluyor.
             {
-                // Öðretme tahtasýna girilen paragraf müfredattaki anlatmasý gerekn paragrafa eþitse paragafý anlatmýþ say. Daha sonra bir sonraki paragrafa geç.
+                // Öðretme tahtasýna girilen paragraf müfredattaki anlatmasý gereken paragrafa eþitse paragafý anlatmýþ say. Daha sonra bir sonraki paragrafa geç.
                 if (teachParagraph.text.Equals(curriculum.unitesData[currentNumberOfUnit].topicsData[currentNumberOfTopic].paragraphs[currentNumberOfParagraph]))
                 {
                     Debug.Log(curriculum.unitesData[currentNumberOfUnit].topicsData[currentNumberOfTopic].paragraphs[currentNumberOfParagraph]);
@@ -72,6 +81,7 @@ public class TeachingManager : MonoBehaviour, IGameTimeObserver
                         // "Anlýk olarak iþlenen paragraf sayýsý"ný tutan deðiþken "bir konudaki paragraf sayýsý"na eþit olursa o günkü dersler bitmiþ olur.
                         if (currentNumberOfParagraph == numberOfParagraphInATopic)
                         {
+                            isLessonsFinished = true;
                             currentNumberOfTopic++; // O günkü ders bittiyse 1 tane konu bitmiþ demektir.
                             canTeachLesson = false; // O günkü dersler bittiyse ders anlatabilme özelliðini kapat
                             sleepManager.SetCanSleep(true); // O günkü ders bitmiþse karakter tekrar uyuyabilir olsun.
@@ -91,8 +101,18 @@ public class TeachingManager : MonoBehaviour, IGameTimeObserver
                             Debug.Log("Teneffüs");
                         }
                     }
-                }    
+                }
+                // Girdiði cümle(paragraf) müfredata uygun deðilse uyarý ver
+                else
+                {
+                    Debug.Log("Konuyu yanlýþ anlatýyorsun");
+                }
             }
+        }
+        // Ders anlatma alanýna girmediyse veya yoklamayý almadýysa uyarý ver
+        else
+        {
+            Debug.Log("Ders anlatabilmek için alana gir veya yoklamayý al.");
         }
     }
     // Teneffüs
@@ -104,7 +124,8 @@ public class TeachingManager : MonoBehaviour, IGameTimeObserver
     //  Bir sonraki günde bazý deðerler baþlangýç deðerine dönmeli.
     public void NextDay()
     {
-        canTeachLesson = true; // Bir sonraki güne geçildiðinde tekrar ders anlatýlabilir omalý
+        isLessonsFinished = false; // Sonraki güne geçildiðinde ders bitti mi deðiþkeni false olmalý
+        canTeachLesson = true; // Bir sonraki güne geçildiðinde tekrar ders anlatýlabilir olmalý
         currentNumberOfParagraph = 0; // Bir sonraki günde paragraflar anlatýlýrken bu sayý yine sýfýrdan baþlamalý.
         Debug.Log("Sonraki güne geçildi.");
     }

@@ -1,8 +1,10 @@
+using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public struct StudentDatas
+public class StudentDatas
 {
     [Header("General Informations")]
     public string studentName;
@@ -13,6 +15,10 @@ public struct StudentDatas
     [Tooltip("Toplam yok yazýlma sayýsý.")] public int numberOfAbsences;
     [Tooltip("O gün okulda olup olmadýðýný tuttuðumuz deðiþken.")] public bool isCurrentlyAtSchool;
     [Tooltip("Öðretmenin tekrar tekrar yoklama almasýný önleyecek deðiþken.")] public bool wasAttendanceTaken; //Öðretmen yoklamayý aldýðýnda bu deðer true olacak.
+
+    [Header("For Homework")]
+    [Tooltip("")] public string[] questions;
+    [Tooltip("")] public char[] answers;
 }
 
 [CreateAssetMenu(fileName = "StudentsAndFeatures", menuName = "Scriptable Objects/StudentsAndFeatures")]
