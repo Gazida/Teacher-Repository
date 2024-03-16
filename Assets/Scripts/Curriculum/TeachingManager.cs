@@ -116,6 +116,9 @@ public class TeachingManager : MonoBehaviour, IGameTimeObserver
                         sleepManager.SetCanSleep(true); // O günkü ders bitmiþse karakter tekrar uyuyabilir olsun.
                         Debug.Log("Bugünkü dersler bitt: " + currentNumberOfTopic);
 
+                        startLessonPanel.SetActive(false); // Dersler biterse ders anlatmak için baþlatma panelini kapat
+                        teachPanel.SetActive(false); // Dersler biterse öðretme panelini kapat
+
                         // "Anlýk iþlenen konu sayýsý"ný tutan deðiþken deðeri "bir ünitedeki konu sayýsý"na eþit olursa anlýk deðer tutan deðiþkeni sýfýrla. Yani bir sonraki haftaya tekrar kullanýma hazýr hale getir.
                         if (currentNumberOfTopic == numberOfTopicsInAUnit)
                         {
@@ -128,6 +131,9 @@ public class TeachingManager : MonoBehaviour, IGameTimeObserver
                     {
                         StartCoroutine(Break());
                         Debug.Log("Teneffüs");
+
+                        startLessonPanel.SetActive(false); // Dersler biterse ders baþlatma panelini kapat
+                        teachPanel.SetActive(false); // Dersler biterse öðretme panelini kapat
                     }
                 }
             }
@@ -143,6 +149,8 @@ public class TeachingManager : MonoBehaviour, IGameTimeObserver
     {
         yield return new WaitForSeconds(breakTime);
         canTeachLesson = true;
+
+        startLessonPanel.SetActive(true); // Teneffüs biterse ders baþlatma panelini aç
     }
     //  Bir sonraki günde bazý deðerler baþlangýç deðerine dönmeli.
     public void NextDay()
@@ -150,6 +158,7 @@ public class TeachingManager : MonoBehaviour, IGameTimeObserver
         isLessonsFinished = false; // Sonraki güne geçildiðinde ders bitti mi deðiþkeni false olmalý
         canTeachLesson = true; // Bir sonraki güne geçildiðinde tekrar ders anlatýlabilir olmalý
         currentNumberOfParagraph = 0; // Bir sonraki günde paragraflar anlatýlýrken bu sayý yine sýfýrdan baþlamalý.
+        startLessonPanel.SetActive(true); // Diðer güne geçilirse ders baþlatma panelini aç
         Debug.Log("Sonraki güne geçildi.");
     }
     public void NextWeek()

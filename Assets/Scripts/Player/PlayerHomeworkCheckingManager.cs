@@ -2,13 +2,15 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 [Serializable]
 public class QuestionsAndAnswersUI
 {
     [Header("For UI")]
     [Tooltip("Defterde yazacak sorularýn texti.")] public TextMeshProUGUI questionText;
-    [Tooltip("Defterde yazaca sorularýn cevap seçenekleri texti.")] public TextMeshProUGUI[] answerTexts;
+    [Tooltip("Defterde yazacak sorularýn cevap seçenekleri texti.")] public TextMeshProUGUI[] answerTexts;
+    [Tooltip("Öðrenci cevaplarýný belirticek image'lar.")] public Image[] studentAnswer;
 }
 
 public class PlayerHomeworkCheckingManager : MonoBehaviour
@@ -18,7 +20,7 @@ public class PlayerHomeworkCheckingManager : MonoBehaviour
     [SerializeField] private PlayerFeatures playerFeatures;
     [SerializeField] private StudentsAndFeatures studentsAndFeatures;
 
-    [Header("SetActive Objects")]
+    [Header("Set Active Objects")]
     [Tooltip("Odev kontrol sistemi ui'ýnýn ilk katmaný.")][SerializeField] private GameObject startChecking;
     [Tooltip("Odev kontrol sistemi ui'ýnýn katmanlarý. Defter sayfalarý")][SerializeField] private GameObject[] pages;
 
@@ -29,6 +31,10 @@ public class PlayerHomeworkCheckingManager : MonoBehaviour
 
     private int currentPage; // anlýk hangi sayfada olduðumuzu tutacak deðiþken
     private int currentWriteQuestions;
+
+    //
+    private int studentId;
+    public int StudentId { get { return studentId; } set {  studentId = value; } }
 
     public void StartTheHomeworkChecking()
     {
@@ -77,6 +83,35 @@ public class PlayerHomeworkCheckingManager : MonoBehaviour
 
             currentWriteQuestions += numberOfQuestionsPerPage;
             currentPage++;
+
+            // Kontrolü baþlatmadan önce tüm öðrenci cevplarýný kapat
+            for(int i = 0; i < playerFeatures.questionsCount; i++)
+            {
+                for(int j = 0; j < 4; j++)
+                {
+                    questionsAndAnswersUI[i].studentAnswer[j].gameObject.SetActive(false);
+                }
+            }
+            // Öðrenci cevaplarýný iþaretle(belirle)
+            for (int i = 0; i < playerFeatures.questionsCount; i++)
+            {
+                if (studentsAndFeatures.studentDatas[studentId].answers[i] == 'a')
+                {
+                    questionsAndAnswersUI[i].studentAnswer[0].gameObject.SetActive(true);
+                }
+                else if (studentsAndFeatures.studentDatas[studentId].answers[i] == 'b')
+                {
+                    questionsAndAnswersUI[i].studentAnswer[1].gameObject.SetActive(true);
+                }
+                else if (studentsAndFeatures.studentDatas[studentId].answers[i] == 'c')
+                {
+                    questionsAndAnswersUI[i].studentAnswer[2].gameObject.SetActive(true);
+                }
+                else if (studentsAndFeatures.studentDatas[studentId].answers[i] == 'd')
+                {
+                    questionsAndAnswersUI[i].studentAnswer[3].gameObject.SetActive(true);
+                }
+            }
         }
 
     }

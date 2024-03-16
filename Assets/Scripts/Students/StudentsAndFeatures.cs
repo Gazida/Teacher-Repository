@@ -3,6 +3,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "StudentsAndFeatures", menuName = "Scriptable Objects/StudentsAndFeatures")]
+public class StudentsAndFeatures : ScriptableObject
+{
+    [SerializeField] public StudentDatas[] studentDatas;
+}
+
 [Serializable]
 public class StudentDatas
 {
@@ -24,8 +30,4 @@ public class StudentDatas
 
 }
 
-[CreateAssetMenu(fileName = "StudentsAndFeatures", menuName = "Scriptable Objects/StudentsAndFeatures")]
-public class StudentsAndFeatures : ScriptableObject
-{
-    [SerializeField] public StudentDatas[] studentDatas;
-}
+

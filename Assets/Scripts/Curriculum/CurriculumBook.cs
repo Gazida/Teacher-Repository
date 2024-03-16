@@ -27,9 +27,34 @@ public class CurriculumBook : MonoBehaviour
         paragraphCount = curriculum.unitesData[0].topicsData[0].paragraphs.Length;
     }
 
+    // Kitabý Aç
+    public void OpenBook()
+    {
+        // Paragraflarý ekranda göstermek için döngüyü baþlatýn
+        for (int i = 0; i < paragraphTexts.Length; i++)
+        {
+            // Þu anda görüntülenen paragrafý ekranda gösterin
+            paragraphTexts[i].text = curriculum.unitesData[currentUnitIndex].topicsData[currentTopicIndex].paragraphs[currentParagraphIndex];
+            currentParagraphIndex++; // Bir sonraki paragrafa geçmek için indeksi artýrýn
+        }
+        topicNameText.text = $"{curriculum.unitesData[currentUnitIndex].topicsData[currentTopicIndex].topicName}:";
+        unitNameText.text = $"{curriculum.unitesData[currentUnitIndex].uniteName}:";
+
+        // Eðer currentParagraphIndex, paragraf sayýsýna eþitse, bu konu tamamlandý demektir
+        if (currentParagraphIndex == paragraphCount)
+        {
+            currentParagraphIndex = 0; // Paragraf indeksini sýfýrlayýn
+            currentTopicIndex++; // Bir sonraki konuya geçmek için indeksi artýrýn
+        }
+    }
+
     // Sonraki sayfaya geç
     public void NextPage()
     {
+        // Konu ve ünite isimlerini kitaba geçir
+        topicNameText.text = $"{curriculum.unitesData[currentUnitIndex].topicsData[currentTopicIndex].topicName}:";
+        unitNameText.text = $"{curriculum.unitesData[currentUnitIndex].uniteName}:";
+
         // Paragraflarý ekranda göstermek için döngüyü baþlatýn
         for (int i = 0; i < paragraphTexts.Length; i++)
         {
@@ -63,8 +88,6 @@ public class CurriculumBook : MonoBehaviour
             }
             Debug.Log("index: " + currentParagraphIndex);
         }
-        topicNameText.text = $"{curriculum.unitesData[currentUnitIndex].topicsData[currentTopicIndex].topicName}:";
-        unitNameText.text = $"{curriculum.unitesData[currentUnitIndex].uniteName}:";
     }
     // Önceki sayfaya geç
     public void PrevPage()
@@ -94,9 +117,10 @@ public class CurriculumBook : MonoBehaviour
                     }
                 }
             }
+            // Þu anda görüntülenen paragrafý ekranda gösterin
             paragraphTexts[i].text = curriculum.unitesData[currentUnitIndex].topicsData[currentTopicIndex].paragraphs[currentParagraphIndex];
-
         }
+        // Konu ve ünite isimlerini kitaba geçir
         topicNameText.text = $"{curriculum.unitesData[currentUnitIndex].topicsData[currentTopicIndex].topicName}:";
         unitNameText.text = $"{curriculum.unitesData[currentUnitIndex].uniteName}:";
     }

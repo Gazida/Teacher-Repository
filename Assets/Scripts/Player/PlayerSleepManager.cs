@@ -22,29 +22,6 @@ public class PlayerSleepManager : MonoBehaviour
         }
     }
 
-    /*
-    public override void Interact()
-    {
-        // karakter uyuyabilir durumduysa, uyumasý gereken alandaysa ve e tuþuna basarsa uyusun
-        if (canSleep && isSleepingArea)
-        {
-            Debug.Log("E ye bastý ve Uyudu.");
-            gameTimeManage.IncreaseNumberOfDays();
-            canSleep = false;
-        }
-    }
-    public override void ShowInfo()
-    {
-        base.ShowInfo();
-        isSleepingArea = true;
-    }
-    public override void HideInfo()
-    {
-        base.HideInfo();
-        isSleepingArea = false;
-    }
-    */
-
     public bool GetCanSleep()
     {
         return canSleep;
