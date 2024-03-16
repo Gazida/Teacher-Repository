@@ -12,127 +12,140 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d519bce04b12f1e47a0838cfa3485527, type: 3}
   m_Name: Curriculum
   m_EditorClassIdentifier: 
-  UniteNames:
-  - Unite 1
-  - Unite 2
-  - Unite 3
-  - Unite 4
-  - Unite 5
-  - Unite 6
-  - Unite 7
-  - Unite 8
-  TopicNames:
-  - Konu 1
-  - Konu 2
-  - Konu 3
-  - Konu 4
-  - Konu 5
-  - Konu 6
-  - Konu 7
-  - Konu 8
-  - Konu 9
-  - Konu 10
-  - Konu 11
-  - Konu 12
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
   unitesData:
-  - topicsData:
-    - paragraphs:
+  - uniteName: Unite 1
+    topicsData:
+    - topicName: Konu 1
+      paragraphs:
       - 1
       - 2
       - 3
-    - paragraphs:
+    - topicName: Konu 2
+      paragraphs:
       - 4
       - 5
       - 6
-    - paragraphs:
+    - topicName: Konu 3
+      paragraphs:
       - 7
       - 8
       - 9
-  - topicsData:
-    - paragraphs:
+  - uniteName: Unite 2
+    topicsData:
+    - topicName: Konu 4
+      paragraphs:
       - 10
       - 11
       - 12
-    - paragraphs:
+    - topicName: Konu 5
+      paragraphs:
       - 13
       - 14
       - 15
-    - paragraphs:
+    - topicName: Konu 6
+      paragraphs:
       - 16
       - 17
       - 18
-  - topicsData:
-    - paragraphs:
+  - uniteName: Unite 3
+    topicsData:
+    - topicName: Konu 7
+      paragraphs:
       - 19
       - 20
       - 21
-    - paragraphs:
+    - topicName: Konu 8
+      paragraphs:
       - 22
       - 23
       - 24
-    - paragraphs:
+    - topicName: Konu 9
+      paragraphs:
       - 25
       - 26
       - 27
-  - topicsData:
-    - paragraphs:
-      - 19
-      - 20
-    - paragraphs:
-      - 21
-      - 22
-    - paragraphs:
-      - 23
-      - 24
-  - topicsData:
-    - paragraphs:
-      - 25
-      - 26
-    - paragraphs:
-      - 27
+  - uniteName: Unite 4
+    topicsData:
+    - topicName: Konu 10
+      paragraphs:
       - 28
-    - paragraphs:
       - 29
       - 30
-  - topicsData:
-    - paragraphs:
+    - topicName: Konu 11
+      paragraphs:
       - 31
       - 32
-    - paragraphs:
       - 33
+    - topicName: Konu 12
+      paragraphs:
       - 34
-    - paragraphs:
       - 35
       - 36
-  - topicsData:
-    - paragraphs:
+  - uniteName: Unite 5
+    topicsData:
+    - topicName: Konu 13
+      paragraphs:
       - 37
       - 38
-    - paragraphs:
       - 39
+    - topicName: Konu 14
+      paragraphs:
       - 40
-    - paragraphs:
       - 41
       - 42
-  - topicsData:
-    - paragraphs:
+    - topicName: Konu 15
+      paragraphs:
       - 43
       - 44
-    - paragraphs:
       - 45
+  - uniteName: Unite 6
+    topicsData:
+    - topicName: Konu 16
+      paragraphs:
       - 46
-    - paragraphs:
       - 47
       - 48
+    - topicName: Konu 17
+      paragraphs:
+      - 49
+      - 50
+      - 51
+    - topicName: Konu 18
+      paragraphs:
+      - 52
+      - 53
+      - 54
+  - uniteName: Unite 7
+    topicsData:
+    - topicName: Konu 19
+      paragraphs:
+      - 55
+      - 56
+      - 57
+    - topicName: Konu 20
+      paragraphs:
+      - 58
+      - 59
+      - 60
+    - topicName: Konu 21
+      paragraphs:
+      - 61
+      - 62
+      - 63
+  - uniteName: Unite 8
+    topicsData:
+    - topicName: Konu 22
+      paragraphs:
+      - 64
+      - 65
+      - 66
+    - topicName: Konu 23
+      paragraphs:
+      - 67
+      - 68
+      - 69
+    - topicName: Konu 24
+      paragraphs:
+      - 70
+      - 71
+      - 72

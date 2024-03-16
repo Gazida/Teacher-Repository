@@ -31,6 +31,10 @@ public class TeachingManager : MonoBehaviour, IGameTimeObserver
     [SerializeField] private Button teachButton;
     [SerializeField] private TMP_InputField teachParagraph;
 
+    [Header("Set Active GameObjects")]
+    [SerializeField] private GameObject startLessonPanel;
+    [SerializeField] private GameObject teachPanel;
+
     // Anlýk olarak iþlenen müfredat
     private int currentNumberOfUnit; // Anlýk olarak anlatýlmýþ olan ünitelerin sayýsý
     private int currentNumberOfTopic; // Anlýk olarak anlatýlmýþ olan konularýn sayýsý
@@ -58,61 +62,80 @@ public class TeachingManager : MonoBehaviour, IGameTimeObserver
     {
         inGameTimeManage.Attach(this); // Bu sýnýf IGameTimeObserver interface'ini içeriyor. Bu metot'a "this" göndererek bu class'ý gözlemci yapýyoruz.(Observer Pattern)
     }
-
-    public void LectureMethot()
+    public void StartLesson()
     {
-        // Karakter ders anlatma triggerý içindeyse ve Yokalama alýndýysa ders anlatabilsin
-        if (isTeacherLectureArea && attendanceManager.IsAttendanceCompleted)
+        // Ders anlatma alaný içindeyse ders anlatabilir
+        if (IsTeacherLectureArea)
         {
-            // Ders iþlenebiliyorsa dersi anlat. Eðer gün sayýsý 4'ün katlarýna denk gelmiyorsa yani hafta sonu deðilse ders anlatabilsin
-            if (canTeachLesson && ((inGameTimeManage.CurrentNumberOfDay + 1) % 4) != 0) // +1 olmasýnýn sebebi gün deðerleri deðiþkende 0 olarak baþlýyor. Bu da 0%4 = 0 olduðundan ilk gün ders anlatazmaz hatasýna sebep oluyor.
+            // Yoklamayý aldýysa ders anlatabilir
+            if (attendanceManager.IsAttendanceCompleted)
             {
-                // Öðretme tahtasýna girilen paragraf müfredattaki anlatmasý gereken paragrafa eþitse paragafý anlatmýþ say. Daha sonra bir sonraki paragrafa geç.
-                if (teachParagraph.text.Equals(curriculum.unitesData[currentNumberOfUnit].topicsData[currentNumberOfTopic].paragraphs[currentNumberOfParagraph]))
+                // Eðer gün sayýsý 4'ün katlarýna denk gelmiyorsa yani hafta sonu deðilse ders anlatabilsin
+                if (((inGameTimeManage.CurrentNumberOfDay + 1) % 4) != 0)
                 {
-                    Debug.Log(curriculum.unitesData[currentNumberOfUnit].topicsData[currentNumberOfTopic].paragraphs[currentNumberOfParagraph]);
-                    currentNumberOfParagraph++; // Her tuþa basýldýðýnda anlatýlan paragraf sayýsýný 1 arttýr.
-
-                    // Anlýk anlatýlan paragraf sayýsý bir derste anlatýlmasý gereken paragraf sayýsýna eþit olursa dersi bitir.
-                    if (currentNumberOfParagraph % numberOfParagraphInTheLesson == 0)
-                    {
-                        canTeachLesson = false; // Ýlk ders bittiði için ders anlatma özelliðini kapat.
-
-                        // "Anlýk olarak iþlenen paragraf sayýsý"ný tutan deðiþken "bir konudaki paragraf sayýsý"na eþit olursa o günkü dersler bitmiþ olur.
-                        if (currentNumberOfParagraph == numberOfParagraphInATopic)
-                        {
-                            isLessonsFinished = true;
-                            currentNumberOfTopic++; // O günkü ders bittiyse 1 tane konu bitmiþ demektir.
-                            canTeachLesson = false; // O günkü dersler bittiyse ders anlatabilme özelliðini kapat
-                            sleepManager.SetCanSleep(true); // O günkü ders bitmiþse karakter tekrar uyuyabilir olsun.
-                            Debug.Log("Bugünkü dersler bitt: " + currentNumberOfTopic);
-
-                            // "Anlýk iþlenen konu sayýsý"ný tutan deðiþken deðeri "bir ünitedeki konu sayýsý"na eþit olursa anlýk deðer tutan deðiþkeni sýfýrla. Yani bir sonraki haftaya tekrar kullanýma hazýr hale getir.
-                            if (currentNumberOfTopic == numberOfTopicsInAUnit)
-                            {
-                                currentNumberOfUnit++;
-                                currentNumberOfTopic = 0;
-                            }
-                        }
-                        // O günkü dersler bitmediyse teneffüs yapabilir
-                        else
-                        {
-                            StartCoroutine(Break());
-                            Debug.Log("Teneffüs");
-                        }
-                    }
+                    startLessonPanel.SetActive(false);
+                    teachPanel.SetActive(true);
                 }
-                // Girdiði cümle(paragraf) müfredata uygun deðilse uyarý ver
                 else
                 {
-                    Debug.Log("Konuyu yanlýþ anlatýyorsun");
+                    Debug.Log("Hafta sonu ders anlatamazsýn");
                 }
             }
+            else
+            {
+                Debug.Log("Yoklamayý almadýn");
+            }
         }
-        // Ders anlatma alanýna girmediyse veya yoklamayý almadýysa uyarý ver
         else
         {
-            Debug.Log("Ders anlatabilmek için alana gir veya yoklamayý al.");
+            Debug.Log("Ders anlatma alanýnda deðilsin.");
+        }
+    }
+    public void LectureMethot()
+    {
+        // Ders iþlenebiliyorsa dersi anlat.
+        if (canTeachLesson) 
+        {
+            // Öðretme tahtasýna girilen paragraf müfredattaki anlatmasý gereken paragrafa eþitse paragafý anlatmýþ say. Daha sonra bir sonraki paragrafa geç.
+            if (teachParagraph.text.Equals(curriculum.unitesData[currentNumberOfUnit].topicsData[currentNumberOfTopic].paragraphs[currentNumberOfParagraph]))
+            {
+                Debug.Log(curriculum.unitesData[currentNumberOfUnit].topicsData[currentNumberOfTopic].paragraphs[currentNumberOfParagraph]);
+                currentNumberOfParagraph++; // Her tuþa basýldýðýnda anlatýlan paragraf sayýsýný 1 arttýr.
+
+                // Anlýk anlatýlan paragraf sayýsý bir derste anlatýlmasý gereken paragraf sayýsýna eþit olursa dersi bitir.
+                if (currentNumberOfParagraph % numberOfParagraphInTheLesson == 0)
+                {
+                    canTeachLesson = false; // Ýlk ders bittiði için ders anlatma özelliðini kapat.
+
+                    // "Anlýk olarak iþlenen paragraf sayýsý"ný tutan deðiþken "bir konudaki paragraf sayýsý"na eþit olursa o günkü dersler bitmiþ olur.
+                    if (currentNumberOfParagraph == numberOfParagraphInATopic)
+                    {
+                        isLessonsFinished = true;
+                        currentNumberOfTopic++; // O günkü ders bittiyse 1 tane konu bitmiþ demektir.
+                        canTeachLesson = false; // O günkü dersler bittiyse ders anlatabilme özelliðini kapat
+                        sleepManager.SetCanSleep(true); // O günkü ders bitmiþse karakter tekrar uyuyabilir olsun.
+                        Debug.Log("Bugünkü dersler bitt: " + currentNumberOfTopic);
+
+                        // "Anlýk iþlenen konu sayýsý"ný tutan deðiþken deðeri "bir ünitedeki konu sayýsý"na eþit olursa anlýk deðer tutan deðiþkeni sýfýrla. Yani bir sonraki haftaya tekrar kullanýma hazýr hale getir.
+                        if (currentNumberOfTopic == numberOfTopicsInAUnit)
+                        {
+                            currentNumberOfUnit++;
+                            currentNumberOfTopic = 0;
+                        }
+                    }
+                    // O günkü dersler bitmediyse teneffüs yapabilir
+                    else
+                    {
+                        StartCoroutine(Break());
+                        Debug.Log("Teneffüs");
+                    }
+                }
+            }
+            // Girdiði cümle(paragraf) müfredata uygun deðilse uyarý ver
+            else
+            {
+                Debug.Log("Konuyu yanlýþ anlatýyorsun");
+            }
         }
     }
     // Teneffüs

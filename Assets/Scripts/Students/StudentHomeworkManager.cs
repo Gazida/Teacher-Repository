@@ -20,6 +20,18 @@ public class StudentHomeworkManager : MonoBehaviour, IGameTimeObserver
 
     public void NextWeek()
     {
+        #region Onceki Odevi Sil
+        for (int i = 0; i < studentsAndFeatures.studentDatas.Length; i++)
+        {
+            // Baþta tüm sorularý doðru yapmýþ olarak ayarla
+            for (int j = 0; j < studentsAndFeatures.studentDatas[i].answers.Length; j++)
+            {
+                studentsAndFeatures.studentDatas[i].answers[j] = ' ';
+            }
+        }
+        #endregion
+
+        #region Sonraki Odevi Yap
         int questionCount = playerFeatures.questionsCount; // Oyuncunun soracaðý soru sayýsý
 
         // aþaðýdaki koddaki hesap þöyledir: sorulan soru sayýsý = 5 ise => 5 * 0.5 = 2.5 dir ve ceilToInt metodu ile 3'e yuvarlanýr.
@@ -46,6 +58,8 @@ public class StudentHomeworkManager : MonoBehaviour, IGameTimeObserver
                 studentsAndFeatures.studentDatas[i].answers[randomQuestion] = randomAnswer;
             }
         }
+        #endregion
+
     }
 
     public void NextMonth()

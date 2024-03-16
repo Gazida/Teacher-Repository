@@ -35,25 +35,28 @@ public class AttendanceManager : MonoBehaviour, IGameTimeObserver
     }
     public void StartAttendance()
     {
-        int numberOfStudentsNotInClass = Random.Range(0, 4); // Yok yazýlacak öðrenci sayýsý
-        int[] randStudentId = new int[3]; // Yok yazýlacak öðrencilerin Id deðerlerini tutan dizi
-
-        // Yoklamayý sadece bir kez baþlatmayý saðlayan if ifadesi
-        if (!isAttendanceStarted)
+        if (!isAttendanceCompleted)
         {
-            isAttendanceStarted = true; // Yoklama baþlatýldýysa bu deðiþkeni true deðerine eþitle
-            // Baþta tüm öðrecileri sýnýfta kabul ediyoruz.
-            for (int i = 0; i < students.studentDatas.Length; i++)
+            int numberOfStudentsNotInClass = Random.Range(0, 4); // Yok yazýlacak öðrenci sayýsý
+            int[] randStudentId = new int[3]; // Yok yazýlacak öðrencilerin Id deðerlerini tutan dizi
+
+            // Yoklamayý sadece bir kez baþlatmayý saðlayan if ifadesi
+            if (!isAttendanceStarted)
             {
-                students.studentDatas[i].isCurrentlyAtSchool = true;
+                isAttendanceStarted = true; // Yoklama baþlatýldýysa bu deðiþkeni true deðerine eþitle
+                                            // Baþta tüm öðrecileri sýnýfta kabul ediyoruz.
+                for (int i = 0; i < students.studentDatas.Length; i++)
+                {
+                    students.studentDatas[i].isCurrentlyAtSchool = true;
+                }
+                // Yok yazýlacak öðrencileri belirleme
+                for (int i = 0; i < numberOfStudentsNotInClass; i++)
+                {
+                    randStudentId[i] = Random.Range(0, students.studentDatas.Length);
+                    students.studentDatas[randStudentId[i]].isCurrentlyAtSchool = false;
+                }
+                Debug.Log($"{numberOfStudentsNotInClass} kiþi sýnýfta yok");
             }
-            // Yok yazýlacak öðrencileri belirleme
-            for (int i = 0; i < numberOfStudentsNotInClass; i++)
-            {
-                randStudentId[i] = Random.Range(0, students.studentDatas.Length);
-                students.studentDatas[randStudentId[i]].isCurrentlyAtSchool = false;
-            }
-            Debug.Log($"{numberOfStudentsNotInClass} kiþi sýnýfta yok");
         }
     }
     public void IsHere(int id)
@@ -111,7 +114,6 @@ public class AttendanceManager : MonoBehaviour, IGameTimeObserver
         for (int i = 0; i < students.studentDatas.Length; i++)
         {
             students.studentDatas[i].wasAttendanceTaken = false;
-            Debug.Log(students.studentDatas[i].wasAttendanceTaken);
         }
     }
 
