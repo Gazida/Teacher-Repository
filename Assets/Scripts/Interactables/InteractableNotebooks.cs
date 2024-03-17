@@ -17,16 +17,33 @@ public class InteractableNotebooks : InteractableObject
     [SerializeField] private GameObject playerFollowCamera;
 
 
+    private void OnEnable()
+    {
+        PlayerHomeworkCheckingManager.stopCheckingHomework += StopInteracting;
+    }
+    private void OnDisable()
+    {
+        PlayerHomeworkCheckingManager.stopCheckingHomework -= StopInteracting;
+    }
+    public void StopInteracting()
+    {
+        homeworkCheckingSystem.SetActive(false);
+        homeworkCheckingCamera.SetActive(false);
+        playerFollowCamera.SetActive(true);
+    }
+
     public override void Interact()
     {
         base.Interact();
 
         // Ýlk gün deðilse ve haftanýn 1. günü ise ödev kontrol sistemini aktifleþtir
-        if(inGameTimeManage.CurrentNumberOfDay != 0 && ((inGameTimeManage.CurrentNumberOfDay + 1) % 4) == 1)
+        if (inGameTimeManage.CurrentNumberOfDay != 0 && ((inGameTimeManage.CurrentNumberOfDay + 1) % 4) == 1)
         {
             homeworkCheckingSystem.SetActive(true);
             homeworkCheckingCamera.SetActive(true);
             playerFollowCamera.SetActive(false);
+
+            Debug.Log("Kitap inceleniyor");
 
             playerHomeworkCheckingManager.StudentId = studentId;
         }

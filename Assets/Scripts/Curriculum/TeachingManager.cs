@@ -40,10 +40,27 @@ public class TeachingManager : MonoBehaviour, IGameTimeObserver
     private int currentNumberOfTopic; // Anlýk olarak anlatýlmýþ olan konularýn sayýsý
     private int currentNumberOfParagraph; // Anlýk olarak anlatýlmýþ olan paragraflarýn sayýsý
 
+    private bool isStartLesson; // Ders baþladý mý ?
     private bool canTeachLesson = true; // Ders anlatabilir mi?
     private bool isLessonsFinished; // O günkü dersler bitti mi
     private bool isTeacherLectureArea; // Öðretmen = Oyuncu ders anlatma alanýnda mý?
 
+    public bool IsStartLesson
+    {
+        get { return isStartLesson; }
+        set
+        {
+            isStartLesson = value;
+        }
+    }
+    public bool CanTeachLesson
+    {
+        get { return canTeachLesson; }
+        set
+        {
+            canTeachLesson = value;
+        }
+    }
     public bool IsLessonsFinished
     {
         get { return isLessonsFinished; }
@@ -73,6 +90,8 @@ public class TeachingManager : MonoBehaviour, IGameTimeObserver
                 // Eðer gün sayýsý 4'ün katlarýna denk gelmiyorsa yani hafta sonu deðilse ders anlatabilsin
                 if (((inGameTimeManage.CurrentNumberOfDay + 1) % 4) != 0)
                 {
+                    isStartLesson = true;
+
                     startLessonPanel.SetActive(false);
                     teachPanel.SetActive(true);
                 }
@@ -155,10 +174,10 @@ public class TeachingManager : MonoBehaviour, IGameTimeObserver
     //  Bir sonraki günde bazý deðerler baþlangýç deðerine dönmeli.
     public void NextDay()
     {
+        isStartLesson = false;
         isLessonsFinished = false; // Sonraki güne geçildiðinde ders bitti mi deðiþkeni false olmalý
         canTeachLesson = true; // Bir sonraki güne geçildiðinde tekrar ders anlatýlabilir olmalý
         currentNumberOfParagraph = 0; // Bir sonraki günde paragraflar anlatýlýrken bu sayý yine sýfýrdan baþlamalý.
-        startLessonPanel.SetActive(true); // Diðer güne geçilirse ders baþlatma panelini aç
         Debug.Log("Sonraki güne geçildi.");
     }
     public void NextWeek()

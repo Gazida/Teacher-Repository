@@ -15,6 +15,9 @@ public class QuestionsAndAnswersUI
 
 public class PlayerHomeworkCheckingManager : MonoBehaviour
 {
+    public delegate void StopCheckingDelegate();
+    public static event StopCheckingDelegate stopCheckingHomework;
+
     [Header("Referances Scripts")]
     [SerializeField] private InGameTimeManage inGameTimeManage;
     [SerializeField] private PlayerFeatures playerFeatures;
@@ -35,6 +38,15 @@ public class PlayerHomeworkCheckingManager : MonoBehaviour
     //
     private int studentId;
     public int StudentId { get { return studentId; } set {  studentId = value; } }
+
+    private void OnEnable()
+    {
+        stopCheckingHomework += StopTheHomeworkChecking;
+    }
+    private void OnDisable()
+    {
+        stopCheckingHomework -= StopTheHomeworkChecking;
+    }
 
     public void StartTheHomeworkChecking()
     {
@@ -137,5 +149,17 @@ public class PlayerHomeworkCheckingManager : MonoBehaviour
             currentPage++;
         }
         Debug.Log("Sonraki sayfaya geç");
+    }
+
+    public void StopChecking()
+    {
+        stopCheckingHomework.Invoke();
+    }
+    private void StopTheHomeworkChecking()
+    {
+        pages[currentPage - 1].SetActive(false);
+        startChecking.SetActive(true);
+        currentPage = 0;
+        currentWriteQuestions = 0;
     }
 }
