@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Codice.Client.Common.GameUI;
+using System.Linq.Expressions;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
@@ -64,6 +66,9 @@ namespace StarterAssets
         // timeout deltatime
         private float _jumpTimeoutDelta;
 		private float _fallTimeoutDelta;
+
+		// is interact
+		private bool _isInteract;
 
 	
 #if ENABLE_INPUT_SYSTEM
@@ -147,8 +152,12 @@ namespace StarterAssets
 				// Update Cinemachine camera target pitch
 				CinemachineCameraTarget.transform.localRotation = Quaternion.Euler(_cinemachineTargetPitch, 0.0f, 0.0f);
 
-				// rotate the player left and right
-				transform.Rotate(Vector3.up * _rotationVelocity);
+				// Etkileşim durumunda değilse rotasyon yapma
+				if (!GetInteractSiuation())
+				{
+                    // rotate the player left and right
+                    transform.Rotate(Vector3.up * _rotationVelocity);
+                }
 			}
 		}
 
@@ -194,9 +203,12 @@ namespace StarterAssets
 				// move
 				inputDirection = transform.right * _input.move.x + transform.forward * _input.move.y;
 			}
-
-			// move the player
-			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+            // Etkileşim durumunda değilse hareketi kısıtla
+            if (!GetInteractSiuation())
+			{
+                // move the player
+                _controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+            }
 		}
 
 		private void JumpAndGravity()
@@ -275,5 +287,15 @@ namespace StarterAssets
         {
             return manaEnough;
         }
+
+		// Etkileşim durumlarında kullanılacak olan metotlar
+		public void SetInteractSituation(bool newValue)
+		{
+			_isInteract = newValue;
+		}
+		public bool GetInteractSiuation()
+		{
+			return _isInteract;
+		}
     }
 }

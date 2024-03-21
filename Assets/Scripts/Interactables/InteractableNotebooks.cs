@@ -16,6 +16,9 @@ public class InteractableNotebooks : InteractableObject
     [SerializeField] private GameObject homeworkCheckingCamera;
     [SerializeField] private GameObject playerFollowCamera;
 
+    [Header("For UI")]
+    [SerializeField] private GameObject infoPressE;
+
 
     private void OnEnable()
     {
@@ -52,9 +55,11 @@ public class InteractableNotebooks : InteractableObject
     public override void ShowInfo()
     {
         base.ShowInfo();
+        infoPressE.SetActive(true);
     }
     public override void HideInfo()
     {
         base.HideInfo();
+        infoPressE.SetActive(false);
     }
 }

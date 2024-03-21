@@ -1,3 +1,4 @@
+using StarterAssets;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine.UI;
 public class TeachingManager : MonoBehaviour, IGameTimeObserver
 {
     [Header("Referances Scripts")]
+    [SerializeField] private FirstPersonController firstPersonController;
     [SerializeField] private InGameTimeManage inGameTimeManage;
     [SerializeField] private AttendanceManager attendanceManager;
     [SerializeField] private PlayerSleepManager sleepManager;
@@ -29,10 +31,10 @@ public class TeachingManager : MonoBehaviour, IGameTimeObserver
 
     [Header("UI Elements")]
     [SerializeField] private Button teachButton;
+    [SerializeField] private Button stopLessonButton;
     [SerializeField] private TMP_InputField teachParagraph;
 
     [Header("Set Active GameObjects")]
-    [SerializeField] private GameObject startLessonPanel;
     [SerializeField] private GameObject teachPanel;
 
     // Anlýk olarak iþlenen müfredat
@@ -81,33 +83,15 @@ public class TeachingManager : MonoBehaviour, IGameTimeObserver
     }
     public void StartLesson()
     {
-        // Ders anlatma alaný içindeyse ders anlatabilir
-        if (IsTeacherLectureArea)
+        // Yoklamayý aldýysa ders anlatabilir
+        if (attendanceManager.IsAttendanceCompleted)
         {
-            // Yoklamayý aldýysa ders anlatabilir
-            if (attendanceManager.IsAttendanceCompleted)
-            {
-                // Eðer gün sayýsý 4'ün katlarýna denk gelmiyorsa yani hafta sonu deðilse ders anlatabilsin
-                if (((inGameTimeManage.CurrentNumberOfDay + 1) % 4) != 0)
-                {
-                    isStartLesson = true;
-
-                    startLessonPanel.SetActive(false);
-                    teachPanel.SetActive(true);
-                }
-                else
-                {
-                    Debug.Log("Hafta sonu ders anlatamazsýn");
-                }
-            }
-            else
-            {
-                Debug.Log("Yoklamayý almadýn");
-            }
+            isStartLesson = true;
+            teachPanel.SetActive(true);
         }
         else
         {
-            Debug.Log("Ders anlatma alanýnda deðilsin.");
+            Debug.Log("Yoklamayý almadýn");
         }
     }
     public void LectureMethot()
@@ -135,7 +119,7 @@ public class TeachingManager : MonoBehaviour, IGameTimeObserver
                         sleepManager.SetCanSleep(true); // O günkü ders bitmiþse karakter tekrar uyuyabilir olsun.
                         Debug.Log("Bugünkü dersler bitt: " + currentNumberOfTopic);
 
-                        startLessonPanel.SetActive(false); // Dersler biterse ders anlatmak için baþlatma panelini kapat
+                        stopLessonButton.gameObject.SetActive(true); // Dersler biterse dersi bitirme butonunu aktif yap
                         teachPanel.SetActive(false); // Dersler biterse öðretme panelini kapat
 
                         // "Anlýk iþlenen konu sayýsý"ný tutan deðiþken deðeri "bir ünitedeki konu sayýsý"na eþit olursa anlýk deðer tutan deðiþkeni sýfýrla. Yani bir sonraki haftaya tekrar kullanýma hazýr hale getir.
@@ -151,8 +135,8 @@ public class TeachingManager : MonoBehaviour, IGameTimeObserver
                         StartCoroutine(Break());
                         Debug.Log("Teneffüs");
 
-                        startLessonPanel.SetActive(false); // Dersler biterse ders baþlatma panelini kapat
                         teachPanel.SetActive(false); // Dersler biterse öðretme panelini kapat
+                        stopLessonButton.gameObject.SetActive(true);
                     }
                 }
             }
@@ -163,13 +147,14 @@ public class TeachingManager : MonoBehaviour, IGameTimeObserver
             }
         }
     }
+
     // Teneffüs
     IEnumerator Break()
     {
         yield return new WaitForSeconds(breakTime);
         canTeachLesson = true;
 
-        startLessonPanel.SetActive(true); // Teneffüs biterse ders baþlatma panelini aç
+        //startLessonPanel.SetActive(true); // Teneffüs biterse ders baþlatma panelini aç
     }
     //  Bir sonraki günde bazý deðerler baþlangýç deðerine dönmeli.
     public void NextDay()

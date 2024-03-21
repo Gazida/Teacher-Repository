@@ -9,6 +9,9 @@ public class InteractableAttendanceBook : InteractableObject
     [SerializeField] private GameObject playerFollowCamera;
     [SerializeField] private GameObject attendanceFollowCamera;
 
+    [Header("For UI")]
+    [SerializeField] private GameObject infoPressE;
+
     private void Update()
     {
         if (attendanceManager.IsAttendanceCompleted)
@@ -20,18 +23,18 @@ public class InteractableAttendanceBook : InteractableObject
     public override void ShowInfo()
     {
         base.ShowInfo();
-
-        Debug.Log("Yoklama alanýndasýn");
+        infoPressE.SetActive(true);
     }
     public override void HideInfo()
     {
         base.HideInfo();
-
-        Debug.Log("Yoklama alanýnda deðilsin");
+        infoPressE.SetActive(false);
     }
     public override void Interact()
     {
         playerFollowCamera.SetActive(false);
         attendanceFollowCamera.SetActive(true);
+        
+        attendanceManager.StartAttendance();
     }
 }

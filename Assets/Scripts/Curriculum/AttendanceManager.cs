@@ -7,7 +7,10 @@ public class AttendanceManager : MonoBehaviour, IGameTimeObserver
     [SerializeField] private InGameTimeManage inGameTimeManage;
     [SerializeField] private StudentsAndFeatures students;
 
-    [Space(10)]
+    [Header("Set Active Objects")]
+    [SerializeField] private GameObject AttendanceSystem;
+
+    [Header("For UI")]
     [SerializeField] private TextMeshProUGUI isHereText;
 
     // Yoklama sistemini kontrol eden deðiþkenler
@@ -35,6 +38,8 @@ public class AttendanceManager : MonoBehaviour, IGameTimeObserver
     }
     public void StartAttendance()
     {
+        isHereText.text = "";
+
         if (!isAttendanceCompleted)
         {
             int numberOfStudentsNotInClass = Random.Range(0, 4); // Yok yazýlacak öðrenci sayýsý
@@ -44,7 +49,8 @@ public class AttendanceManager : MonoBehaviour, IGameTimeObserver
             if (!isAttendanceStarted)
             {
                 isAttendanceStarted = true; // Yoklama baþlatýldýysa bu deðiþkeni true deðerine eþitle
-                                            // Baþta tüm öðrecileri sýnýfta kabul ediyoruz.
+
+                // Baþta tüm öðrecileri sýnýfta kabul ediyoruz.
                 for (int i = 0; i < students.studentDatas.Length; i++)
                 {
                     students.studentDatas[i].isCurrentlyAtSchool = true;
@@ -57,6 +63,7 @@ public class AttendanceManager : MonoBehaviour, IGameTimeObserver
                 }
                 Debug.Log($"{numberOfStudentsNotInClass} kiþi sýnýfta yok");
             }
+            AttendanceSystem.SetActive(true);
         }
     }
     public void IsHere(int id)
@@ -81,6 +88,7 @@ public class AttendanceManager : MonoBehaviour, IGameTimeObserver
             if(numberOfStudentWhoseAttendanceWasTaken == students.studentDatas.Length)
             {
                 isAttendanceCompleted = true;
+                AttendanceSystem.SetActive(false);
             }
         }
     }
@@ -99,6 +107,7 @@ public class AttendanceManager : MonoBehaviour, IGameTimeObserver
             if (numberOfStudentWhoseAttendanceWasTaken == students.studentDatas.Length)
             {
                 isAttendanceCompleted = true;
+                AttendanceSystem.SetActive(false);
             }
         }
     }
