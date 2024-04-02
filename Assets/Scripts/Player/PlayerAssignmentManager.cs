@@ -17,8 +17,9 @@ public class PlayerAssignmentManager : MonoBehaviour, IGameTimeObserver
     [SerializeField][Tooltip("Oyuncunun gireceði sorunun girdi alaný")] private TMP_InputField questionInputField;
     [SerializeField][Tooltip("Oyuncunun gireceði cevaplarýn girdi alaný")] private TMP_InputField[] answersInputField;
 
-    [Space(10)]
+    [Header("Set Active Gameobject")]
     [SerializeField][Tooltip("Aktifliði deðiþtirilecek layer.")] private GameObject startTheAssignmentSystem;
+    [SerializeField][Tooltip("Aktifliði deðiþtirilecek layer.")] private GameObject finishTheAssignmentSystem;
     [SerializeField][Tooltip("Aktifliði deðiþtirilecek layer.")] private GameObject chooseHowManyQuestions;
     [SerializeField][Tooltip("Aktifliði deðiþtirilecek layer.")] private GameObject enterTheQuestionAndAnswer;
     [SerializeField][Tooltip("Aktifliði deðiþtirilecek layer.")] private GameObject chooseCorrectAnswer;
@@ -112,7 +113,11 @@ public class PlayerAssignmentManager : MonoBehaviour, IGameTimeObserver
             // Girilen soru sayýsý istenilen soru sayýsýna ulaþtýysa tüm sistemi kapat
             if (numberOfQustionsEntered == numberOfQuestion)
             {
-                startTheAssignmentSystem.SetActive(true);
+                // Ödev verme sistemini bitirme butonu
+                finishTheAssignmentSystem.SetActive(true);
+
+                // Soru sorma kýsýmlarý
+                startTheAssignmentSystem.SetActive(false);
                 chooseHowManyQuestions.SetActive(false);
                 enterTheQuestionAndAnswer.SetActive(false);
                 chooseCorrectAnswer.SetActive(false);
@@ -135,7 +140,11 @@ public class PlayerAssignmentManager : MonoBehaviour, IGameTimeObserver
             // Girilen soru sayýsý istenilen soru sayýsýna ulaþtýysa tüm sistemi kapat
             if (numberOfQustionsEntered == numberOfQuestion)
             {
-                startTheAssignmentSystem.SetActive(true);
+                // Ödev verme sistemini bitirme butonu
+                finishTheAssignmentSystem.SetActive(true);
+
+                // Soru sorma kýsýmlarý
+                startTheAssignmentSystem.SetActive(false);
                 chooseHowManyQuestions.SetActive(false);
                 enterTheQuestionAndAnswer.SetActive(false);
                 chooseCorrectAnswer.SetActive(false);
@@ -158,7 +167,11 @@ public class PlayerAssignmentManager : MonoBehaviour, IGameTimeObserver
             // Girilen soru sayýsý istenilen soru sayýsýna ulaþtýysa tüm sistemi kapat
             if (numberOfQustionsEntered == numberOfQuestion)
             {
-                startTheAssignmentSystem.SetActive(true);
+                // Ödev verme sistemini bitirme butonu
+                finishTheAssignmentSystem.SetActive(true);
+
+                // Soru sorma kýsýmlarý
+                startTheAssignmentSystem.SetActive(false);
                 chooseHowManyQuestions.SetActive(false);
                 enterTheQuestionAndAnswer.SetActive(false);
                 chooseCorrectAnswer.SetActive(false);
@@ -181,17 +194,30 @@ public class PlayerAssignmentManager : MonoBehaviour, IGameTimeObserver
             // Girilen soru sayýsý istenilen soru sayýsýna ulaþtýysa tüm sistemi kapat
             if (numberOfQustionsEntered == numberOfQuestion)
             {
-                startTheAssignmentSystem.SetActive(true);
+                // Ödev verme sistemini bitirme butonu
+                finishTheAssignmentSystem.SetActive(true);
+
+                // Soru sorma kýsýmlarý
+                startTheAssignmentSystem.SetActive(false);
                 chooseHowManyQuestions.SetActive(false);
                 enterTheQuestionAndAnswer.SetActive(false);
                 chooseCorrectAnswer.SetActive(false);
             }
         }
     }
+    // Ödev verme sistemini bitiren metot
+    public void FinishedTheAssignment()
+    {
+        startTheAssignmentSystem.SetActive(false);
+        chooseHowManyQuestions.SetActive(false);
+        enterTheQuestionAndAnswer.SetActive(false);
+        chooseCorrectAnswer.SetActive(false);
+    }
 
     public void NextDay()
     {
-        Debug.Log("Ben AttendanceManager sýnýfýna ait NextDay metoduyum.");
+        startTheAssignmentSystem.SetActive(true);
+        finishTheAssignmentSystem.SetActive(false);
     }
 
     public void NextWeek()

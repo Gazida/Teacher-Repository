@@ -2,7 +2,7 @@ using StarterAssets;
 using TMPro;
 using UnityEngine;
 
-public class InteractableBlackBoard : InteractableObject
+public class InteractableBlackBoard : InteractableObject, IGameTimeObserver
 {
     [Header("Referances")]
     [SerializeField] private FirstPersonController firstPersonController;
@@ -14,6 +14,7 @@ public class InteractableBlackBoard : InteractableObject
     [SerializeField] private GameObject teachCamera;
     [SerializeField] private GameObject playerFollowCamera;
     [SerializeField] private TextMeshProUGUI uiInfoText;
+    [SerializeField] private GameObject homeworkAssignemnetSystem;
 
     public override void ShowInfo()
     {
@@ -22,6 +23,12 @@ public class InteractableBlackBoard : InteractableObject
         if (teachingManager.IsLessonsFinished)
         {
             uiInfoText.text = "Ders Bitti!";
+
+            // Dersler bittikten sonra eðer haftanýn 3.günündeysek ödev verme sistemini aç
+            if((inGameTimeManage.CurrentNumberOfDay+1) % 4 == 3)
+            {
+                uiInfoText.text = "Odev Ver [E]";
+            }
         }
         else
         {
@@ -76,6 +83,18 @@ public class InteractableBlackBoard : InteractableObject
         {
             uiInfoText.text = "Hafta Sonu Ders Anlatamazsýn!";
         }
+
+        // Haftanýn 3.günüyse ve dersler bittiyse ödev verme sistemini aç
+        if((inGameTimeManage.CurrentNumberOfDay + 1) % 4 == 3 && teachingManager.IsLessonsFinished)
+        {
+            homeworkAssignemnetSystem.SetActive(true);
+
+            uiInfoText.gameObject.SetActive(false);
+            teachCamera.SetActive(true);
+            playerFollowCamera.SetActive(false);
+
+            firstPersonController.SetInteractSituation(true);
+        }
     }
     public void StopLesson()
     {
@@ -83,5 +102,25 @@ public class InteractableBlackBoard : InteractableObject
         playerFollowCamera.SetActive(true);
 
         firstPersonController.SetInteractSituation(false);
+    }
+
+    public void NextDay()
+    {
+        homeworkAssignemnetSystem.SetActive(false);
+    }
+
+    public void NextWeek()
+    {
+        Debug.Log("Ben InteractablaeBlackBoard sýnýfýna ait NextWeek metoduyum.");
+    }
+
+    public void NextMonth()
+    {
+        Debug.Log("Ben InteractablaeBlackBoard sýnýfýna ait NexMonth metoduyum.");
+    }
+
+    public void NextYear()
+    {
+        Debug.Log("Ben InteractablaeBlackBoard sýnýfýna ait NextYear metoduyum.");
     }
 }

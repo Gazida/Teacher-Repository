@@ -42,10 +42,12 @@ public class TeachingManager : MonoBehaviour, IGameTimeObserver
     private int currentNumberOfTopic; // Anlýk olarak anlatýlmýþ olan konularýn sayýsý
     private int currentNumberOfParagraph; // Anlýk olarak anlatýlmýþ olan paragraflarýn sayýsý
 
+    // Ders anlatabilir mi
     private bool isStartLesson; // Ders baþladý mý ?
-    private bool canTeachLesson = true; // Ders anlatabilir mi?
-    private bool isLessonsFinished; // O günkü dersler bitti mi
-    private bool isTeacherLectureArea; // Öðretmen = Oyuncu ders anlatma alanýnda mý?
+    private bool canTeachLesson = true; // Ders anlatabilir mi ?
+    private bool isLessonsFinished; // O günkü dersler bitti mi ?
+    private bool isCurrentLessonFinished; // O anki ders bitti mi ?
+    private bool isTeacherLectureArea; // Öðretmen = Oyuncu ders anlatma alanýnda mý ?
 
     public bool IsStartLesson
     {
@@ -69,6 +71,14 @@ public class TeachingManager : MonoBehaviour, IGameTimeObserver
         set
         {
             isLessonsFinished = value;
+        }
+    }
+    public bool IsCurrentLessonsFinished
+    {
+        get { return isCurrentLessonFinished; }
+        set
+        {
+            isCurrentLessonFinished = value;
         }
     }
     public bool IsTeacherLectureArea
@@ -97,7 +107,7 @@ public class TeachingManager : MonoBehaviour, IGameTimeObserver
     public void LectureMethot()
     {
         // Ders iþlenebiliyorsa dersi anlat.
-        if (canTeachLesson) 
+        if (canTeachLesson)
         {
             // Öðretme tahtasýna girilen paragraf müfredattaki anlatmasý gereken paragrafa eþitse paragafý anlatmýþ say. Daha sonra bir sonraki paragrafa geç.
             if (teachParagraph.text.Equals(curriculum.unitesData[currentNumberOfUnit].topicsData[currentNumberOfTopic].paragraphs[currentNumberOfParagraph]))
@@ -109,6 +119,7 @@ public class TeachingManager : MonoBehaviour, IGameTimeObserver
                 if (currentNumberOfParagraph % numberOfParagraphInTheLesson == 0)
                 {
                     canTeachLesson = false; // Ýlk ders bittiði için ders anlatma özelliðini kapat.
+                    isCurrentLessonFinished = true;
 
                     // "Anlýk olarak iþlenen paragraf sayýsý"ný tutan deðiþken "bir konudaki paragraf sayýsý"na eþit olursa o günkü dersler bitmiþ olur.
                     if (currentNumberOfParagraph == numberOfParagraphInATopic)
@@ -153,6 +164,7 @@ public class TeachingManager : MonoBehaviour, IGameTimeObserver
     {
         yield return new WaitForSeconds(breakTime);
         canTeachLesson = true;
+        isCurrentLessonFinished = false; // Teneffüs bittikten sonra "o anki ders bitti mi" deðiþkenini false yap
 
         //startLessonPanel.SetActive(true); // Teneffüs biterse ders baþlatma panelini aç
     }
@@ -163,6 +175,7 @@ public class TeachingManager : MonoBehaviour, IGameTimeObserver
         isLessonsFinished = false; // Sonraki güne geçildiðinde ders bitti mi deðiþkeni false olmalý
         canTeachLesson = true; // Bir sonraki güne geçildiðinde tekrar ders anlatýlabilir olmalý
         currentNumberOfParagraph = 0; // Bir sonraki günde paragraflar anlatýlýrken bu sayý yine sýfýrdan baþlamalý.
+
         Debug.Log("Sonraki güne geçildi.");
     }
     public void NextWeek()

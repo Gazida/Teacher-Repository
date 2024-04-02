@@ -153,7 +153,7 @@ public class PlayerHomeworkCheckingManager : MonoBehaviour
 
     public void StopChecking()
     {
-        stopCheckingHomework.Invoke();
+        stopCheckingHomework?.Invoke();
     }
     private void StopTheHomeworkChecking()
     {
