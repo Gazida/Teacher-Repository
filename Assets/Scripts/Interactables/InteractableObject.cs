@@ -1,3 +1,4 @@
+using StarterAssets;
 using UnityEngine;
 
 public abstract class InteractableObject : MonoBehaviour, IInteractable

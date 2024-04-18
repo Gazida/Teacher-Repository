@@ -4,6 +4,7 @@ public class InteractableAttendanceBook : InteractableObject
 {
     [Header("Rferances Scripts")]
     [SerializeField] private AttendanceManager attendanceManager;
+    [SerializeField] private InGameTimeManage inGameTimeManage;
 
     [Header("Cameras")]
     [SerializeField] private GameObject playerFollowCamera;
@@ -32,9 +33,12 @@ public class InteractableAttendanceBook : InteractableObject
     }
     public override void Interact()
     {
-        playerFollowCamera.SetActive(false);
-        attendanceFollowCamera.SetActive(true);
-        
-        attendanceManager.StartAttendance();
+        if((inGameTimeManage.CurrentNumberOfDay + 1) % 4 != 0)
+        {
+            playerFollowCamera.SetActive(false);
+            attendanceFollowCamera.SetActive(true);
+
+            attendanceManager.StartAttendance();
+        }
     }
 }
